@@ -1,0 +1,94 @@
+steps to covert from below input structure to output for one example:
+
+Input structure 1: 
+{fname,lname,age,salary,phone,home address:{street,city,country,zip},DOB, company,work address:{street,city,country,zip},designation,empID}
+
+Output Structure:
+{Details:{personal details:{fullname,age,phone,home address:{street,city,country,zip},DOB}, work details:{salary,empID,work address,designation}}}
+
+
+Steps:
+1. create 3 empty output fields (Details,personal details, work details) using expression ${emptyMap()}
+
+	{
+		"fieldToSet": "/Details",
+		"expression": "${emptyMap()}"
+	},
+	{
+		"fieldToSet": "/personal details",
+		"expression": "${emptyMap()}"
+	},
+	{
+		"fieldToSet": "/work detail",
+		"expression": "${emptyMap()}"
+	}
+	
+	
+
+	
+
+2. In the personal details field add fullname,age,phone,home address,DOB using below expression
+	
+	{
+		"fieldToSet": "/personal details/fullname",
+		"expression": "${str:concat(str:concat(record:value('/fname'),\" \"),record:value('/lname'))}"
+	},
+	{
+		"fieldToSet": "/personal details/age",
+		"expression": "${record:value('/age')}"
+	},
+	{
+		"fieldToSet": "/personal details/phone number",
+		"expression": "${record:value('/phone')}"
+	},
+	{
+		"fieldToSet": "/personal details/address",
+		"expression": "${record:value('/home address')}"
+	},
+	{
+		"fieldToSet": "/personal details/birthday",
+		"expression": "${record:value('/DOB')}"
+	}
+	
+3. In the work details field add salary,company name,address,designation,employee id using below expression
+
+
+	{
+		"fieldToSet": "/work detail/salary",
+		"expression": "${record:value('/salary')}"
+	},
+	{
+		"fieldToSet": "/work detail/company name",
+		"expression": "${record:value('/company')}"
+	},
+	{
+		"fieldToSet": "/work detail/address",
+		"expression": "${record:value('/work address')}"
+	},
+	{
+		"fieldToSet": "/work detail/designation",
+		"expression": "${record:value('/Designation')}"
+	},
+	{
+		"fieldToSet": "/work detail/Employee ID",
+		"expression": "${record:value('/empID')}"
+	}
+	
+4. now in the Details root  filed add both other sub root fields work details, personal details using below expression
+
+
+	{
+		"fieldToSet": "/Details/personal details",
+		"expression": "${record:value('/personal details')}"
+	},
+	{
+		"fieldToSet": "/Details/work detail",
+		"expression": "${record:value('/work detail')}"
+	}
+	
+5. merge all the above expression into []
+
+6. add filed remover activity and remove all other fileds except Details
+	/fname /lname
+	
+-----------------------------------------------------------------------------
