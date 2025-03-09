@@ -1,7 +1,0 @@
-to access a parameter in the groovy script:
-
-create a paramete named uniqueID with value uuid:uuid()
-
-then add the below in the script:
-
-log.info('uniqueID :'+sdcFunctions.pipelineParameters()['uniqueID'])

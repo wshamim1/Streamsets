@@ -1,8 +1,0 @@
-while using WholeFileTranformer stage (for converting avro to parquet file) in streamsets you might run into below issue
-
-CONVERT_01 - Failed to validate record is a whole file data format : java.lang.IllegalArgumentException: Record does not contain the mandatory fields /fileRef,/fileInfo,/fileInfo/size for Whole File Format.
-
-
-solution:
-
-you need to configure Data Format as "Whole File tranformer" in both origin and destination.
