@@ -2,7 +2,6 @@
 
 import os
 from auth import StreamSetsAuth
-from pipelinebuilder_dev_to_trash import PipelineBuilder
 from streamsets.sdk import ControlHub
 
 
